@@ -1,11 +1,11 @@
 {
   "project": {
-    "projectSettingsVersion": "1.2",
+    "projectSettingsVersion": "2.0.0",
     "creationData": {
       "projectTypeName": "com.intel.xdk.projecttype.iotapp",
       "src": "https://appcenter.html5tools-software.intel.com/api/v2.0/redirect/projectrenderers/release-2015-ww25/iotapp/templates-blank-iot/sample.zip",
       "projectGuid": "a2e0e27f-49e6-4a01-944c-49347f6a79e4",
-      "lastModifiedDate": 1438080125068,
+      "lastModifiedDate": 1452974488489,
       "creationDate": 1438080124905
     },
     "sourceDirectory": "",
@@ -15,7 +15,15 @@
     "startFile": "main.js",
     "projectTags": [],
     "projectFiles": {},
-    "projectDirectories": {},
+    "projectDirectories": {
+      "xdk": {
+        "settings": {
+          "project": {
+            "XDK-generated": "true"
+          }
+        }
+      }
+    },
     "libraries": [],
     "cordovaPlugins": [],
     "serviceMethods": [],
@@ -32,11 +40,14 @@
         "isActive_": true,
         "appName_": "Intelligation",
         "appID_": "not.yet.specified",
-        "appAccess_": [
-          {
-            "origin": "*"
-          }
-        ],
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [
+            "*"
+          ],
+          "intents": [],
+          "navigation": []
+        },
         "icons_": [],
         "splashes_": [],
         "addlPermissions_": "",
@@ -58,11 +69,14 @@
         "isActive_": true,
         "appName_": "Intelligation",
         "appID_": "not.yet.specified",
-        "appAccess_": [
-          {
-            "origin": "*"
-          }
-        ],
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [
+            "*"
+          ],
+          "intents": [],
+          "navigation": []
+        },
         "icons_": [],
         "splashes_": [],
         "addlPermissions_": "",
@@ -83,11 +97,14 @@
         "isActive_": true,
         "appName_": "Intelligation",
         "appID_": "not.yet.specified",
-        "appAccess_": [
-          {
-            "origin": "*"
-          }
-        ],
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [
+            "*"
+          ],
+          "intents": [],
+          "navigation": []
+        },
         "icons_": [],
         "splashes_": [],
         "addlPermissions_": "",
@@ -104,11 +121,14 @@
         "isActive_": true,
         "appName_": "Intelligation",
         "appID_": "not.yet.specified",
-        "appAccess_": [
-          {
-            "origin": "*"
-          }
-        ],
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [
+            "*"
+          ],
+          "intents": [],
+          "navigation": []
+        },
         "icons_": [],
         "splashes_": [],
         "addlPermissions_": "",
@@ -116,6 +136,7 @@
         "appVersion_": "0.0.0.1",
         "cordovaCLIVersion_": "4.1.2"
       }
-    }
+    },
+    "testDirectory": "test"
   }
 }
