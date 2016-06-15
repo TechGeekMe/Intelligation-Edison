@@ -8,14 +8,15 @@
 //}
 var mraa = require('mraa'); //require MRAA
 console.log('MRAA Version: ' + mraa.getVersion()); //Log MRAA version
-var aadhaarId = '123456789012'; //Aadhaar ID is hardcoded into the board
+//var aadhaarId = '123456789012'; //Aadhaar ID is hardcoded into the board
+var device_id = 'fc:c2:de:3d:57:4a';//Mac address of edison board
 //var aadhaarId = '098765432112';
-//var url = "http://192.168.43.193:8080"; //URL for the server
-var url = "http://intelligation.azurewebsites.net";
+var url = "http://192.168.43.193:8080"; //URL for the server
+//var url = "http://intelligation.azurewebsites.net";
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest; //For sending a http request to get initail setup configuration
 var xmlHttp = new XMLHttpRequest();
 var sensors = null;
-xmlHttp.open( "GET", url + "/setup_config" + "?aadhaar_id=" + aadhaarId, false );
+xmlHttp.open( "GET", url + "/setup_config" + "?device_id=" + device_id, false );
 xmlHttp.send( null );
 sensors = JSON.parse(xmlHttp.responseText);
 console.log('Setup Complete');
@@ -83,6 +84,13 @@ socket.on('motor_toggle', function (data) {
     }
 });
 
+socket.on('refresh_sensor' function (data)  {
+    console.log(data);
+    setImmediate(function() {
+        readCurrentSensorValue(data.sensor_id);
+        socket.emit("sensor_refresh",sensor[data.sensor_id]);
+    });
+});
 function readCurrentSensorValue(i)  {
     //sensors[i].sensor_value = convertRange( sensors[i].analog_pin.read(), [ 490, 1024 ], [ 100, 0 ] );
     sensors[i].sensor_value = Math.floor(Math.random() * 100);

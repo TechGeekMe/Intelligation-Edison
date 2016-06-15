@@ -1,6 +1,6 @@
 {
   "project": {
-    "projectSettingsVersion": "3.0.0",
+    "projectSettingsVersion": "2.0.0",
     "currentBuildConfiguration": "Android",
     "projectFiles": {},
     "projectDirectories": {},
@@ -83,8 +83,5 @@
         "previousModTime": 1454087562853
       }
     }
-  },
-  "editorTab": {
-    "currentEditorMode": 0
   }
 }

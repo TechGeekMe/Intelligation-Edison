@@ -1,11 +1,11 @@
 {
   "project": {
-    "projectSettingsVersion": "3.0.0",
+    "projectSettingsVersion": "2.0.0",
     "creationData": {
       "projectTypeName": "com.intel.xdk.projecttype.iotapp",
       "src": "https://appcenter.html5tools-software.intel.com/api/v2.0/redirect/projectrenderers/release-2015-ww25/iotapp/templates-blank-iot/sample.zip",
       "projectGuid": "a2e0e27f-49e6-4a01-944c-49347f6a79e4",
-      "lastModifiedDate": 1465973593750,
+      "lastModifiedDate": 1452974488489,
       "creationDate": 1438080124905
     },
     "sourceDirectory": "",
@@ -52,7 +52,6 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "certificateId_": "",
         "appVersion_": "0.0.1",
         "appVersionCode_": "1",
         "crosswalkVersion_": "11",
@@ -82,7 +81,6 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "certificateId_": "",
         "appVersion_": "0.0.1",
         "appVersionCode_": "1",
         "crosswalkVersion_": "11",
@@ -93,8 +91,8 @@
         "runtime_": "Cordova 3.x",
         "name_": "iOS",
         "preferences_": {
-          "ios-configuration": "adhoc",
-          "deployment-target": "6"
+          "ios-target": "6",
+          "ios-configuration": "adhoc"
         },
         "isActive_": true,
         "appName_": "Intelligation",
@@ -111,7 +109,6 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "certificateId_": "",
         "appVersion_": "0.0.1",
         "cordovaCLIVersion_": "4.1.2",
         "iosProvs_": []
@@ -136,7 +133,6 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "certificateId_": "",
         "appVersion_": "0.0.0.1",
         "cordovaCLIVersion_": "4.1.2"
       }
