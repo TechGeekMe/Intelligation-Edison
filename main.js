@@ -8,7 +8,12 @@
 //}
 var mraa = require('mraa'); //require MRAA
 var Promise = require('promise');
+var serverOnLed = new mraa.Gpio(11);
+var serverOffLed = new mraa.Gpio(12);
+serverOnLed.dir(mraa.DIR_OUT);
+serverOffLed.dir(mraa.DIR_OUT);
 console.log('MRAA Version: ' + mraa.getVersion()); //Log MRAA version
+serverOffLed.write(1);
 //var aadhaarId = '123456789012'; //Aadhaar ID is hardcoded into the board
 var device_id = 'fc:c2:de:3d:57:4a';//Mac address of edison board
 //var aadhaarId = '098765432112';
@@ -36,7 +41,8 @@ function makeNewPromise() {
 
 function promiseComplete() {
     //console.log(xmlHttp);
-    sensors = JSON.parse(xmlHttp.responseText);
+    var sensors = JSON.parse(xmlHttp.responseText);
+    console.log(xmlHttp.responseText)
     console.log('Setup Complete');
     function convertRange( value, r1, r2 ) { 
         return ( value - r1[ 0 ] ) * ( r2[ 1 ] - r2[ 0 ] ) / ( r1[ 1 ] - r1[ 0 ] ) + r2[ 0 ];
@@ -49,6 +55,10 @@ function promiseComplete() {
         console.log(sensors[i].pin_no+', ');
         sensors[i]["motor_pin"] = new mraa.Gpio(sensors[i].pin_no); //mapping motor pins
         sensors[i].motor_pin.dir(mraa.DIR_OUT); //setting the motor pin to out
+        if(sensors[i].auto == 0) {
+            console.log("inside if")
+            sensors[i].motor_pin.write(sensors[i].motor_status)
+        }
         sensors[i]["upper_threshold"] = ((sensors[i].threshold * 1.1) > 100)?100:sensors[i].threshold * 1.1;
         sensors[i]["lower_threshold"] = ((sensors[i].threshold * 0.9) < 0)?0:sensors[i].threshold * 0.9;
     }
@@ -61,6 +71,8 @@ function promiseComplete() {
     var socket = require('socket.io-client')(url);
     socket.on('connect', function(){
         console.log("Connected to server");
+        serverOnLed.write(1);
+        serverOffLed.write(0);
         clearInterval(sensorInterval);
         serverInterval = setInterval(function () {
             for (var i = 0; i < sensors.length; i++)    {
@@ -72,6 +84,8 @@ function promiseComplete() {
     });
     socket.on('disconnect', function(){
         console.log("Disconnected from server");
+        serverOnLed.write(0);
+        serverOffLed.write(1);
         clearInterval(serverInterval);
         sensorInterval = updatingSensors();
     });
@@ -92,10 +106,10 @@ function promiseComplete() {
                 sensors[i].motor_status = data.state;
                 if(data.state == 1){
                     sensors[i].motor_pin.write(1);
-                    console.log("Sensor "+i+" Motor On");
+                    console.log("Sensor "+sensors[i].pin_no+" Motor On");
                 }else if(data.state == 0){               
                     sensors[i].motor_pin.write(0);
-                    console.log("Sensor "+i+" Motor off");
+                    console.log("Sensor "+sensors[i].pin_no+" Motor off");
                 }
             }
         }
@@ -109,18 +123,19 @@ function promiseComplete() {
         });
     });
     function readCurrentSensorValue(i)  {
-        //sensors[i].sensor_value = convertRange( sensors[i].analog_pin.read(), [ 490, 1024 ], [ 100, 0 ] );
-        sensors[i].sensor_value = Math.floor(Math.random() * 100);
+        console.log("an val:" + sensors[i].analog_pin.read())
+        sensors[i].sensor_value = convertRange( sensors[i].analog_pin.read(), [ 300, 1024 ], [ 100, 0 ] );
+        //sensors[i].sensor_value = Math.floor(Math.random() * 100);
         console.log("Sensor " + sensors[i].pin_no + " = " + sensors[i].sensor_value);
         if (sensors[i].auto == true) {
             if (!sensors[i].motor_status && (sensors[i].sensor_value < sensors[i].lower_threshold)) {
                 sensors[i].motor_status = 1;
                 sensors[i].motor_pin.write(1);
-                console.log("Sensor "+i+" Motor On auto");
+                console.log("Sensor "+sensors[i].pin_no+" Motor On auto");
             } else if(sensors[i].motor_status && (sensors[i].sensor_value > sensors[i].upper_threshold)) {
                 sensors[i].motor_status = 0;
                 sensors[i].motor_pin.write(0);
-                console.log("Sensor "+i+" Motor off auto");
+                console.log("Sensor "+sensors[i].pin_no+" Motor off auto");
             }
         }
     }
